@@ -1,0 +1,41 @@
+{
+    "name": "av-gulp-injector",
+    "version": "1.0.0",
+    "description": "A nodeJs / gulp module in complement of gulp-asset to automatically import assets to your files",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AppVentus/av-gulp-injector.git"
+    },
+    "keywords": [
+        "gulp",
+        "injector"
+    ],
+    "contributors": [
+        {
+            "name": "Loïc Goyet",
+            "email": "loic@appventus.com",
+            "url": "https://appventus.com/"
+        },
+        {
+            "name": "Paul Andrieux",
+            "email": "paul@appventus.com",
+            "url": "https://appventus.com/"
+        }
+    ],
+    "dependencies": {
+        "gulp": "^3.9.0",
+        "gulp-load-plugins": "^1.1.0",
+        "fs-finder": "^1.8.1",
+        "fs": "0.0.2"
+    },
+    "author": "Loïc Goyet",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/AppVentus/av-gulp-injector/issues"
+    },
+    "homepage": "https://github.com/AppVentus/av-gulp-injector#readme"
+}
