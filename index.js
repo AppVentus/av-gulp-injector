@@ -18,6 +18,17 @@ ginjector.compileAliases = function(str, aliases) {
 };
 
 /**
+ * Reinplement path aliases for real path
+ */
+ginjector.decompileAliases = function(str, aliases) {
+    for (var alias in aliases) {
+        str = str.replace(new RegExp(aliases[alias], 'g'), alias);
+    }
+
+    return str;
+}
+
+/**
  * Merge a single injector to the injectorsAssemble
  */
 ginjector.mergeInjectors = function (injectorsCollection, injector) {
@@ -68,7 +79,7 @@ ginjector.injectorsAssemble = function (aliases) {
 /**
  * Generates a pipe with the injection for one tag
  */
-ginjector.tagInjector = function(source, tag, path, relativeInjection) {
+ginjector.tagInjector = function(source, tag, path, relativeInjection, aliases) {
     var sources = gulp.src(path, {read: false});
 
     var injection = $.inject(
@@ -92,6 +103,16 @@ ginjector.tagInjector = function(source, tag, path, relativeInjection) {
                 if (filepath.slice(-5) === '.scss') {
                     return '@import \'' + filepath + '\';';
                 }
+
+                if (filepath.slice(-5) === '.twig') {
+                    // aliases are needed with symfony twig path includes
+                    filepath = ginjector.decompileAliases(filepath, aliases);
+
+                    // substring is made to remove the "/" at the start of the
+                    // path
+                    filepath = filepath.substring(1);
+                    return '{% include "' + filepath + '" %}';
+                }
             }
         }
     );
@@ -113,7 +134,7 @@ ginjector.injector = function(src, aliases, relativeInjection) {
      */
     for (var tag in injectorsCollection){
         if (injectorsCollection.hasOwnProperty(tag)) {
-            this.tagInjector(src, tag, injectorsCollection[tag], relativeInjection);
+            this.tagInjector(src, tag, injectorsCollection[tag], relativeInjection, aliases);
         }
     }
 
