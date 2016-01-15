@@ -1,6 +1,6 @@
 {
   "name": "av-gulp-injector",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A nodeJs / gulp module in complement of gulp-asset to automatically import assets to your files",
   "main": "index.js",
   "scripts": {
