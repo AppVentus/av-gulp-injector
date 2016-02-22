@@ -26,7 +26,7 @@ ginjector.decompileAliases = function(str, aliases) {
     }
 
     return str;
-}
+};
 
 /**
  * Merge a single injector to the injectorsAssemble
@@ -51,6 +51,15 @@ ginjector.mergeInjectors = function (injectorsCollection, injector) {
     return injectorsCollection;
 };
 
+ginjector.isJson = function (str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+};
+
 /**
  * Collect all injector.json and group them into the injectorsCollection
  */
@@ -70,7 +79,9 @@ ginjector.injectorsAssemble = function (aliases) {
             data = ginjector.compileAliases(data, aliases);
         }
 
-        injectorsCollection = ginjector.mergeInjectors(injectorsCollection, JSON.parse(data));
+        if (this.isJson(data)) {
+            injectorsCollection = ginjector.mergeInjectors(injectorsCollection, JSON.parse(data));
+        }
     }
 
     return injectorsCollection;
